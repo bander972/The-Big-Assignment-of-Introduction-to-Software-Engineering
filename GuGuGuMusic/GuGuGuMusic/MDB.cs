@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
+
 
 namespace GuGuGuMusic
 {
@@ -14,17 +12,17 @@ namespace GuGuGuMusic
 
         [Obsolete]
         private static string _DBConnString = System.Configuration.ConfigurationManager.AppSettings["DBConnectionString"];
+
         /// <summary>
         /// 数据库 TODO
         /// </summary>
-        public static string DBConnString
-        {
-            get { return _DBConnString; }
-        }
+        [Obsolete]
+        public static string DBConnString => _DBConnString;
 
-        public MySqlConnection connection()
+        [Obsolete]
+        public MySql.Data.MySqlClient.MySqlConnection connection()
         {
-            MySqlConnection conn = new MySqlConnection(DBConnString);
+            MySql.Data.MySqlClient.MySqlConnection conn = new MySql.Data.MySqlClient.MySqlConnection(DBConnString);
             try
             {
                 conn.Open();
@@ -44,9 +42,10 @@ namespace GuGuGuMusic
         /// </summary>
         /// <param name="sql"></param>
         /// <returns></returns>
-        public MySqlCommand Command(string sql)
+        [Obsolete]
+        public MySql.Data.MySqlClient.MySqlCommand Command(string sql)
         {
-            MySqlCommand command = new MySqlCommand(sql, connection());
+            MySql.Data.MySqlClient.MySqlCommand command = new MySql.Data.MySqlClient.MySqlCommand(sql, connection());
             return command;
         }
 
@@ -55,6 +54,7 @@ namespace GuGuGuMusic
         /// </summary>
         /// <param name="sql"></param>
         /// <returns></returns>
+        [Obsolete]
         public int ExcuteNonQuery(string sql)
         {
             return Command(sql).ExecuteNonQuery();
@@ -65,19 +65,22 @@ namespace GuGuGuMusic
         /// </summary>
         /// <param name="sql"></param>
         /// <returns></returns>
-        public MySqlDataReader Read(string sql)
+        [Obsolete]
+        public MySql.Data.MySqlClient.MySqlDataReader Read(string sql)
         {
             return Command(sql).ExecuteReader();
         }
 
+        [Obsolete]
         public DataSet GetMusicInfo()
         {
-            MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter("select * from userinfo", connection());
+            MySql.Data.MySqlClient.MySqlDataAdapter mySqlDataAdapter = new MySql.Data.MySqlClient.MySqlDataAdapter("select * from userinfo", connection());
             DataSet userInfoDataSet = new DataSet();
             mySqlDataAdapter.Fill(userInfoDataSet, "userinfo");
             return userInfoDataSet;
         }
 
+        [Obsolete]
         public bool AddMusic(Music music)
         {
             try
@@ -94,12 +97,13 @@ namespace GuGuGuMusic
             }
         }
 
+        [Obsolete]
         public List<Music> GetMusics()
         {
             try
             {
                 string sql = "SELECT * FROM musicinfo";
-                MySqlDataReader rd = Read(sql);
+                MySql.Data.MySqlClient.MySqlDataReader rd = Read(sql);
                 List<Music> musics = new List<Music>();
                 while (rd.Read())
                 {

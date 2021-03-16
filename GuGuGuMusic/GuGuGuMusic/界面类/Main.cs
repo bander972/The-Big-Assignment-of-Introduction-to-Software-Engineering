@@ -160,6 +160,7 @@ namespace GuGuGuMusic
         private const int edgeY = 4;
         #endregion
 
+        [Obsolete]
         public Main()
         {
             m_aeroEnabled = false;
@@ -294,7 +295,7 @@ namespace GuGuGuMusic
 
         }
 
-
+        [Obsolete]
         private void button1_Click(object sender, EventArgs e)
         {
             if (openFileDialog.ShowDialog() == DialogResult.OK)
